@@ -28,7 +28,7 @@
    - `ADMIN_PASSWORD` — пароль для первого входа в админку (логин `rura.alla@bk.ru`);
    - `NEXT_PUBLIC_SERVER_URL` — можно не задавать, пока нет своего домена (адрес возьмётся у Vercel). Когда подключите домен — впишите его, например `https://olga-cveti.ru`.
 3. Нажать **Deploy** (первый раз может упасть — это нормально, базы ещё нет).
-4. В проекте: **Storage → Create Database → Neon (Postgres)** → Connect to project. Затем **Storage → Create → Blob** → Connect to project. Vercel сам добавит `POSTGRES_URL` и `BLOB_READ_WRITE_TOKEN`.
+4. В проекте: **Storage → Create Database → Neon (Postgres)**, регион **Frankfurt** → Connect to project. Затем **Storage → Create → Blob**, регион **Frankfurt** → Connect to project. (Сервер сайта тоже во Франкфурте — `vercel.json`, ближе к России.) Vercel сам добавит `POSTGRES_URL` и `BLOB_READ_WRITE_TOKEN`.
 5. **Deployments → … → Redeploy.** При сборке автоматически создадутся таблицы и стартовое наполнение (разделы, букеты, цветы, тексты).
 6. Открыть `https://<адрес>/admin`, войти: `rura.alla@bk.ru` + пароль из шага 2. Пароль потом можно сменить в разделе «Администраторы».
 
