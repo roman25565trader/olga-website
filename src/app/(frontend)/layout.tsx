@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from 'next'
+import { siteUrl } from '@/lib/url'
 import Script from 'next/script'
 import { Footer } from '@/components/Footer'
 import { Header } from '@/components/Header'
@@ -16,7 +17,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const title = s.seoTitle || `${s.siteName} — ${s.tagline || 'цветы'}${s.city ? `, ${s.city}` : ''}`
   const og = asMedia(s.ogImage)
   return {
-    metadataBase: new URL(process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'),
+    metadataBase: new URL(siteUrl()),
     title: { default: title, template: `%s — ${s.siteName}` },
     description: s.seoDescription || undefined,
     openGraph: {
@@ -35,10 +36,6 @@ export default async function Layout({ children }: { children: React.ReactNode }
   const [s, pages, home] = await Promise.all([getSettings(), getFooterPages(), getHome()])
   return (
     <html lang="ru">
-      <head>
-        <link rel="preload" href="/fonts/inter-tight-cyrillic.woff2" as="font" type="font/woff2" crossOrigin="" />
-        <link rel="preload" href="/fonts/noto-display-cyrillic.woff2" as="font" type="font/woff2" crossOrigin="" />
-      </head>
       <body>
         <Header s={s} />
         <main>{children}</main>

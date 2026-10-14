@@ -26,7 +26,7 @@
 2. До нажатия Deploy, в **Environment Variables** добавить:
    - `PAYLOAD_SECRET` — любая длинная случайная строка (например, 40 любых букв и цифр);
    - `ADMIN_PASSWORD` — пароль для первого входа в админку (логин `rura.alla@bk.ru`);
-   - `NEXT_PUBLIC_SERVER_URL` — адрес сайта, например `https://olga-cveti.vercel.app` (после подключения домена — поменять).
+   - `NEXT_PUBLIC_SERVER_URL` — можно не задавать, пока нет своего домена (адрес возьмётся у Vercel). Когда подключите домен — впишите его, например `https://olga-cveti.ru`.
 3. Нажать **Deploy** (первый раз может упасть — это нормально, базы ещё нет).
 4. В проекте: **Storage → Create Database → Neon (Postgres)** → Connect to project. Затем **Storage → Create → Blob** → Connect to project. Vercel сам добавит `POSTGRES_URL` и `BLOB_READ_WRITE_TOKEN`.
 5. **Deployments → … → Redeploy.** При сборке автоматически создадутся таблицы и стартовое наполнение (разделы, букеты, цветы, тексты).

@@ -1,4 +1,5 @@
 import { randomBytes } from 'crypto'
+import { siteUrl } from '@/lib/url'
 import { getClient } from '@/lib/data'
 import { str, tooMany } from '@/lib/guard'
 import { notifyTelegram } from '@/lib/notify'
@@ -60,6 +61,6 @@ export async function POST(req: Request) {
     })
   }
 
-  await notifyTelegram(payload, `💬 Чат на сайте — ${chat.name} ${chat.phone}\n\n${text}\n\nОтветить: ${process.env.NEXT_PUBLIC_SERVER_URL || ''}/admin/collections/chats/${chat.id}`)
+  await notifyTelegram(payload, `💬 Чат на сайте — ${chat.name} ${chat.phone}\n\n${text}\n\nОтветить: ${siteUrl()}/admin/collections/chats/${chat.id}`)
   return Response.json({ token: chat.token, messages: pub(chat.messages) })
 }

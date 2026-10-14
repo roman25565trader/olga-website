@@ -57,7 +57,7 @@ export default async function DeliveryPage() {
         <ul className="notes">
           {d.notes.map((n, i) => (
             <li key={i}>
-              <h3>{n.title}</h3>
+              <h2>{n.title}</h2>
               {n.text ? <p>{n.text}</p> : null}
             </li>
           ))}

@@ -17,7 +17,7 @@ export type BuilderFlower = {
 type Pack = { name: string; price: number; note?: string | null }
 type Props = { flowers: BuilderFlower[]; packaging: Pack[]; minStems: number; note?: string | null }
 
-const UNIT: Record<string, string> = { stem: 'стебель', branch: 'ветка', pcs: 'шт' }
+const UNIT: Record<string, string> = { stem: 'стебель', branch: 'ветку', pcs: 'шт' }
 
 export function Builder({ flowers, packaging, minStems, note }: Props) {
   const router = useRouter()
@@ -93,7 +93,7 @@ export function Builder({ flowers, packaging, minStems, note }: Props) {
       </ul>
 
       <aside className="bld-sum" id="bld-sum">
-        <h3 className="bld-sum-h">Ваш букет</h3>
+        <p className="bld-sum-h">Ваш букет</p>
         <p className="bld-sel">
           {lines.length
             ? lines.map((l) => `${l.name} × ${l.qty}`).join(', ')

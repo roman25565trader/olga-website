@@ -3,16 +3,16 @@ import type { Category } from '@/payload-types'
 import { plural } from '@/lib/format'
 import { Img } from './Img'
 
-export function Tiles({ cats, counts, base }: { cats: Category[]; counts: Record<number, number>; base: string }) {
+export function Tiles({ cats, counts, base, eager = 0 }: { cats: Category[]; counts: Record<number, number>; base: string; eager?: number }) {
   return (
     <ul className="tiles">
-      {cats.map((c) => {
+      {cats.map((c, i) => {
         const n = counts[c.id] || 0
         return (
           <li key={c.id}>
             <Link href={`/${base}/${c.slug}`} className="tile">
               <span className="tile-m">
-                {c.image ? <Img media={c.image} sizes="(max-width: 1023px) 50vw, 25vw" alt="" /> : <span className="tile-ph">{c.title[0]}</span>}
+                {c.image ? <Img media={c.image} sizes="(max-width: 1023px) 50vw, 25vw" alt="" priority={i < eager} /> : <span className="tile-ph">{c.title[0]}</span>}
               </span>
               <span className="tile-t">
                 <span className="tile-n">{c.title}</span>

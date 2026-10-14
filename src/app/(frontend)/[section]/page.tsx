@@ -37,7 +37,7 @@ export default async function SectionPage({ params }: P) {
         </ol>
       </nav>
       <Opener as="h1" title={title || SECTION_TITLES[section]} text={text} />
-      {own.length > 0 && <Tiles cats={own} counts={counts} base={section} />}
+      {own.length > 0 && <Tiles cats={own} counts={counts} base={section} eager={2} />}
       {list.length > 0 && (
         <div className="sec">
           <Opener k={`Все ${SECTION_TITLES[section].toLowerCase()}`} title={`${list.length} в наличии`} />

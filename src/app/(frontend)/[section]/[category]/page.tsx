@@ -51,7 +51,7 @@ export default async function CategoryPage({ params }: P) {
           </div>
         </div>
       )}
-      <ProductGrid products={list} />
+      <ProductGrid products={list} h={2} eager={2} />
     </div>
   )
 }

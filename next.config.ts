@@ -9,7 +9,6 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   compress: true,
   images: { unoptimized: true },
-  experimental: { inlineCss: true },
   async headers() {
     return [
       {
