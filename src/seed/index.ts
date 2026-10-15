@@ -27,12 +27,33 @@ if (settings.seededAt && !process.env.SEED_FORCE) {
 
 payload.logger.info('Наполняем сайт стартовым содержимым…')
 
+// Ошибки наполнения пишем в служебную таблицу seed_log — их видно и без доступа к логам сборки
+const log = async (msg: string) => {
+  payload.logger.error(msg)
+  try {
+    const pool = (payload.db as unknown as { pool: { query: (q: string, v?: unknown[]) => Promise<unknown> } }).pool
+    await pool.query('create table if not exists seed_log (at timestamptz default now(), msg text)')
+    await pool.query('insert into seed_log (msg) values ($1)', [msg.slice(0, 4000)])
+  } catch {}
+}
+for (const ev of ['unhandledRejection', 'uncaughtException'] as const)
+  process.on(ev, async (e: unknown) => {
+    await log(`${ev}: ${e instanceof Error ? e.stack : String(e)}`)
+    process.exit(1)
+  })
+
 const media: Record<string, number> = {}
-const up = async (name: string, alt: string) => {
+// Фото не должно ронять сборку: если загрузка не удалась, сайт наполнится без него
+const up = async (name: string, alt: string): Promise<number | undefined> => {
   if (media[name]) return media[name]
-  const m = await payload.create({ collection: 'media', data: { alt }, filePath: img(name) })
-  media[name] = m.id
-  return m.id
+  try {
+    const m = await payload.create({ collection: 'media', data: { alt }, filePath: img(name) })
+    media[name] = m.id
+    return m.id
+  } catch (e) {
+    await log(`media ${name}: ${e instanceof Error ? e.stack || e.message : String(e)}`)
+    return undefined
+  }
 }
 
 // ---------- разделы ----------
@@ -109,7 +130,10 @@ const products = [
 
 for (const [i, p] of products.entries()) {
   const images: number[] = []
-  for (const [n, alt] of p.imgs) images.push(await up(n, alt))
+  for (const [n, alt] of p.imgs) {
+    const id = await up(n, alt)
+    if (id) images.push(id)
+  }
   await payload.create({
     collection: 'products',
     data: {
@@ -269,7 +293,12 @@ await payload.updateGlobal({
       para('Каждое утро Ольга сама отбирает цветы из свежей поставки. Из них собираются букеты дня, композиции и ваш собственный букет из конструктора.'),
       para('Мы не работаем с корзинами и не продаём то, что не подарили бы сами. Всё чётко и понятно: фото до отправки, честные замены и доставка в день заказа.'),
     ),
-    gallery: [await up('shop', 'Вёдра со свежими цветами у витрины'), await up('peonies', 'Белые пионы'), await up('peach-2', 'Садовые розы'), await up('ribbon', 'Лента на букете')],
+    gallery: [
+      await up('shop', 'Вёдра со свежими цветами у витрины'),
+      await up('peonies', 'Белые пионы'),
+      await up('peach-2', 'Садовые розы'),
+      await up('ribbon', 'Лента на букете'),
+    ].filter((x): x is number => Boolean(x)),
   },
 })
 
