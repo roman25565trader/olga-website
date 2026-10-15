@@ -29,7 +29,7 @@ payload.logger.info('Наполняем сайт стартовым содерж
 
 // Ошибки наполнения пишем в служебную таблицу seed_log — их видно и без доступа к логам сборки
 const log = async (msg: string) => {
-  payload.logger.error(msg)
+  console.error(msg)
   try {
     const pool = (payload.db as unknown as { pool: { query: (q: string, v?: unknown[]) => Promise<unknown> } }).pool
     await pool.query('create table if not exists seed_log (at timestamptz default now(), msg text)')
@@ -41,6 +41,21 @@ for (const ev of ['unhandledRejection', 'uncaughtException'] as const)
     await log(`${ev}: ${e instanceof Error ? e.stack : String(e)}`)
     process.exit(1)
   })
+
+// Payload пишет исходную причину ошибки загрузки только в свой лог — дублируем её в seed_log
+const origError = payload.logger.error.bind(payload.logger)
+payload.logger.error = ((obj: unknown, ...rest: unknown[]) => {
+  const e = (obj as { err?: unknown })?.err ?? obj
+  void log(`logger: ${e instanceof Error ? e.stack || e.message : JSON.stringify(e)?.slice(0, 2000)}`)
+  return origError(obj as never, ...(rest as never[]))
+}) as typeof payload.logger.error
+
+try {
+  const sharp = (await import('sharp')).default
+  await sharp(img('mini')).resize(64).webp().toBuffer()
+} catch (e) {
+  await log(`sharp probe: ${e instanceof Error ? e.stack || e.message : String(e)}`)
+}
 
 const media: Record<string, number> = {}
 // Фото не должно ронять сборку: если загрузка не удалась, сайт наполнится без него
