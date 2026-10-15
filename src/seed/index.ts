@@ -42,21 +42,6 @@ for (const ev of ['unhandledRejection', 'uncaughtException'] as const)
     process.exit(1)
   })
 
-// Payload пишет исходную причину ошибки загрузки только в свой лог — дублируем её в seed_log
-const origError = payload.logger.error.bind(payload.logger)
-payload.logger.error = ((obj: unknown, ...rest: unknown[]) => {
-  const e = (obj as { err?: unknown })?.err ?? obj
-  void log(`logger: ${e instanceof Error ? e.stack || e.message : JSON.stringify(e)?.slice(0, 2000)}`)
-  return origError(obj as never, ...(rest as never[]))
-}) as typeof payload.logger.error
-
-try {
-  const sharp = (await import('sharp')).default
-  await sharp(img('mini')).resize(64).webp().toBuffer()
-} catch (e) {
-  await log(`sharp probe: ${e instanceof Error ? e.stack || e.message : String(e)}`)
-}
-
 const media: Record<string, number> = {}
 // Фото не должно ронять сборку: если загрузка не удалась, сайт наполнится без него
 const up = async (name: string, alt: string): Promise<number | undefined> => {
