@@ -93,7 +93,20 @@ export function Builder({ flowers, packaging, minStems, note }: Props) {
       </ul>
 
       <aside className="bld-sum" id="bld-sum">
-        <p className="bld-sum-h">Ваш букет</p>
+        <p className="bld-sum-h">{lines.length ? 'Вы собрали прекрасный букет!' : 'Ваш букет'}</p>
+        {lines.length > 0 && (
+          <ul className="bld-pics">
+            {lines.map((l) => {
+              const thumb = flowers.find((f) => f.id === l.id)?.thumb
+              return (
+                <li key={l.id}>
+                  {thumb ? <img src={thumb} alt="" width={64} height={64} /> : <span className="bld-ph" />}
+                  <span className="bld-pics-q">×{l.qty}</span>
+                </li>
+              )
+            })}
+          </ul>
+        )}
         <p className="bld-sel">
           {lines.length
             ? lines.map((l) => `${l.name} × ${l.qty}`).join(', ')

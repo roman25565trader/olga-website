@@ -8,12 +8,12 @@ export const Builder: GlobalConfig = {
   access: { read: () => true },
   hooks: { afterChange: [revalidateGlobal] },
   fields: [
-    { name: 'title', label: 'Заголовок', type: 'text', defaultValue: 'Конструктор *вашего* букета' },
+    { name: 'title', label: 'Заголовок', type: 'text', admin: { description: 'На главной над блоком уже есть надпись «Конструктор» — заголовок можно не заполнять.' } },
     {
       name: 'text',
       label: 'Пояснение',
       type: 'textarea',
-      defaultValue: 'Выберите цветы и количество — цена считается сразу. Соберём из сегодняшней поставки и пришлём фото до отправки.',
+      defaultValue: 'Здесь вы можете собрать свой букет из предложенных цветов',
     },
     {
       name: 'packaging',

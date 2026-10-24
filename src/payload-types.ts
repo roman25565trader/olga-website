@@ -277,7 +277,6 @@ export interface Media {
    * Например: «Букет из пионовидных роз в крафте». Можно оставить пустым.
    */
   alt?: string | null;
-  _objectKey?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -651,7 +650,6 @@ export interface FlowersSelect<T extends boolean = true> {
  */
 export interface MediaSelect<T extends boolean = true> {
   alt?: T;
-  _objectKey?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -853,6 +851,9 @@ export interface Home {
  */
 export interface Builder {
   id: number;
+  /**
+   * На главной над блоком уже есть надпись «Конструктор» — заголовок можно не заполнять.
+   */
   title?: string | null;
   text?: string | null;
   packaging?:
