@@ -4,12 +4,13 @@ import { revalidateAfterChange, revalidateAfterDelete } from '../lib/revalidate'
 
 export const Flowers: CollectionConfig = {
   slug: 'flowers',
-  labels: { singular: 'Цветок', plural: 'Цветы для конструктора' },
+  labels: { singular: 'Цветок', plural: '🌷 Цветы для конструктора' },
   defaultSort: 'sortOrder',
   admin: {
-    group: 'Каталог',
+    group: 'Что продаём',
+    hideAPIURL: true,
     useAsTitle: 'name',
-    defaultColumns: ['name', 'variety', 'price', 'stock', 'active'],
+    defaultColumns: ['image', 'name', 'variety', 'price', 'stock', 'active'],
     description: 'Из этих цветов покупатель собирает свой букет. Цена — за 1 стебель/ветку.',
   },
   access: { read: publishedOrLoggedIn, create: loggedIn, update: loggedIn, delete: loggedIn },
@@ -50,13 +51,13 @@ export const Flowers: CollectionConfig = {
         },
       ],
     },
-    { name: 'image', label: 'Фото', type: 'upload', relationTo: 'media' },
+    { name: 'image', label: 'Фото', type: 'upload', relationTo: 'media', admin: { components: { Cell: '@/components/admin/ThumbCell#ThumbCell' } } },
     {
       name: 'active',
       label: 'Показывать в конструкторе',
       type: 'checkbox',
       defaultValue: true,
-      admin: { position: 'sidebar' },
+      admin: { components: { Cell: '@/components/admin/BoolCell#BoolCell' }, position: 'sidebar' },
     },
     {
       name: 'sortOrder',

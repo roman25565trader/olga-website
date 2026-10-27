@@ -15,10 +15,11 @@ const rub = (n?: number | null) => `${(n ?? 0).toLocaleString('ru-RU')} ₽`
 
 export const Orders: CollectionConfig = {
   slug: 'orders',
-  labels: { singular: 'Заказ', plural: 'Заказы' },
+  labels: { singular: 'Заказ', plural: '📦 Заказы' },
   defaultSort: '-createdAt',
   admin: {
-    group: 'Магазин',
+    group: 'Клиенты',
+    hideAPIURL: true,
     useAsTitle: 'number',
     defaultColumns: ['number', 'status', 'customerName', 'customerPhone', 'total', 'deliveryDate', 'createdAt'],
     listSearchableFields: ['number', 'customerName', 'customerPhone'],
@@ -166,7 +167,7 @@ export const Orders: CollectionConfig = {
         },
         { name: 'cardText', label: 'Текст открытки', type: 'textarea' },
         { name: 'comment', label: 'Комментарий покупателя', type: 'textarea' },
-        { name: 'anonymous', label: 'Анонимно', type: 'checkbox' },
+        { name: 'anonymous', label: 'Анонимно', type: 'checkbox', admin: { components: { Cell: '@/components/admin/BoolCell#BoolCell' } } },
       ],
     },
   ],

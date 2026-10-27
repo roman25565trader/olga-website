@@ -3,9 +3,11 @@ import { anyone, loggedIn } from '../lib/access'
 
 export const Media: CollectionConfig = {
   slug: 'media',
-  labels: { singular: 'Файл', plural: 'Фото и видео' },
+  labels: { singular: 'Фото или видео', plural: '🖼 Все фото и видео' },
   admin: {
-    group: 'Каталог',
+    group: 'Что продаём',
+    hideAPIURL: true,
+    defaultColumns: ['filename', 'alt', 'updatedAt'],
     description: 'Все фото и видео сайта. Загружайте как есть с телефона — сайт сам уменьшит и сожмёт.',
   },
   access: { read: anyone, create: loggedIn, update: loggedIn, delete: loggedIn },

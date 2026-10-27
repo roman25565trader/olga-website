@@ -34,10 +34,18 @@ export default buildConfig({
   admin: {
     user: Users.slug,
     importMap: { baseDir: path.resolve(dirname) },
-    meta: { titleSuffix: ' — админка' },
+    meta: { titleSuffix: ' — управление сайтом' },
     dateFormat: 'dd.MM.yyyy HH:mm',
+    avatar: 'default',
     components: {
-      beforeDashboard: ['@/components/admin/Welcome#Welcome'],
+      actions: ['@/components/admin/ThemeToggle#ThemeToggle'],
+      graphics: {
+        Logo: '@/components/admin/Logo#Logo',
+        Icon: '@/components/admin/Logo#Icon',
+      },
+      views: {
+        dashboard: { Component: '@/components/admin/Dashboard#Dashboard' },
+      },
     },
   },
   i18n: { supportedLanguages: { ru }, fallbackLanguage: 'ru' },

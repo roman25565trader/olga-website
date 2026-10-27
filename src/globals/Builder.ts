@@ -3,8 +3,8 @@ import { revalidateGlobal } from '../lib/revalidate'
 
 export const Builder: GlobalConfig = {
   slug: 'builder',
-  label: 'Конструктор букета',
-  admin: { group: 'Страницы сайта', description: 'Сами цветы и цены — в разделе «Цветы для конструктора».' },
+  label: '🎀 Конструктор букета',
+  admin: { group: 'Тексты сайта', hideAPIURL: true, description: 'Сами цветы и цены — в разделе «Цветы для конструктора».' },
   access: { read: () => true },
   hooks: { afterChange: [revalidateGlobal] },
   fields: [

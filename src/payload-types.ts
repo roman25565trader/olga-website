@@ -182,7 +182,7 @@ export interface Order {
   createdAt: string;
 }
 /**
- * Сообщения из окна «Чат с флористом» на сайте. Откройте чат, напишите ответ в поле «Ваш ответ» и сохраните — покупатель увидит его на сайте.
+ * Сообщения из окна «Чат с флористом» на сайте. Откройте чат, напишите ответ в поле «Ваш ответ» и нажмите «Сохранить» — покупатель увидит ответ на сайте.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "chats".
@@ -212,6 +212,8 @@ export interface Chat {
   createdAt: string;
 }
 /**
+ * Нажмите на букет, чтобы поменять фото, цену или описание. Галочка «В продаже» прячет или показывает его на сайте.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "products".
  */
@@ -219,7 +221,7 @@ export interface Product {
   id: number;
   title: string;
   /**
-   * Первое фото — главное. Лучше вертикальные, 4:5.
+   * Первое фото — главное, его видно в каталоге. Перетаскивайте, чтобы поменять порядок. Лучше вертикальные.
    */
   images?: (number | Media)[] | null;
   price: number;

@@ -3,8 +3,8 @@ import { revalidateGlobal } from '../lib/revalidate'
 
 export const About: GlobalConfig = {
   slug: 'about',
-  label: 'О нас',
-  admin: { group: 'Страницы сайта' },
+  label: '👩‍🌾 О нас',
+  admin: { group: 'Тексты сайта', hideAPIURL: true },
   access: { read: () => true },
   hooks: { afterChange: [revalidateGlobal] },
   fields: [

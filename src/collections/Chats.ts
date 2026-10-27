@@ -3,22 +3,24 @@ import { loggedIn } from '../lib/access'
 
 export const Chats: CollectionConfig = {
   slug: 'chats',
-  labels: { singular: 'Чат', plural: 'Чат с флористом' },
+  labels: { singular: 'Чат', plural: '💬 Сообщения с сайта' },
   defaultSort: '-lastMessageAt',
   admin: {
-    group: 'Магазин',
+    group: 'Клиенты',
+    hideAPIURL: true,
     useAsTitle: 'title',
     defaultColumns: ['title', 'unread', 'lastText', 'lastMessageAt'],
     description:
-      'Сообщения из окна «Чат с флористом» на сайте. Откройте чат, напишите ответ в поле «Ваш ответ» и сохраните — покупатель увидит его на сайте.',
+      'Сообщения из окна «Чат с флористом» на сайте. Откройте чат, напишите ответ в поле «Ваш ответ» и нажмите «Сохранить» — покупатель увидит ответ на сайте.',
   },
   access: { read: loggedIn, create: loggedIn, update: loggedIn, delete: loggedIn },
   hooks: {
     beforeChange: [
-      ({ data, req }) => {
+      ({ data, req, originalDoc }) => {
         const reply = typeof data.reply === 'string' ? data.reply.trim() : ''
         if (reply && req.user) {
-          data.messages = [...(data.messages || []), { from: 'florist', text: reply, at: new Date().toISOString() }]
+          const prev = data.messages ?? originalDoc?.messages ?? []
+          data.messages = [...prev, { from: 'florist', text: reply, at: new Date().toISOString() }]
           data.reply = ''
           data.unread = false
           data.lastMessageAt = new Date().toISOString()
@@ -31,6 +33,7 @@ export const Chats: CollectionConfig = {
   },
   fields: [
     { name: 'title', type: 'text', admin: { hidden: true } },
+    { name: 'thread', type: 'ui', admin: { components: { Field: '@/components/admin/ChatThread#ChatThread' } } },
     {
       name: 'reply',
       label: 'Ваш ответ',
@@ -42,7 +45,7 @@ export const Chats: CollectionConfig = {
       label: 'Переписка',
       type: 'array',
       labels: { singular: 'Сообщение', plural: 'Сообщения' },
-      admin: { initCollapsed: false },
+      admin: { hidden: true },
       fields: [
         {
           type: 'row',
@@ -65,7 +68,7 @@ export const Chats: CollectionConfig = {
     },
     { name: 'name', label: 'Имя', type: 'text', admin: { position: 'sidebar' } },
     { name: 'phone', label: 'Телефон', type: 'text', admin: { position: 'sidebar' } },
-    { name: 'unread', label: 'Не прочитано', type: 'checkbox', defaultValue: true, admin: { position: 'sidebar' } },
+    { name: 'unread', label: 'Не прочитано', type: 'checkbox', defaultValue: true, admin: { components: { Cell: '@/components/admin/BoolCell#BoolCell' }, position: 'sidebar' } },
     { name: 'lastText', label: 'Последнее сообщение', type: 'text', admin: { readOnly: true, position: 'sidebar' } },
     {
       name: 'lastMessageAt',

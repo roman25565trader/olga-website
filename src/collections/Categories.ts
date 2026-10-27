@@ -10,12 +10,13 @@ export const SECTIONS = [
 
 export const Categories: CollectionConfig = {
   slug: 'categories',
-  labels: { singular: 'Раздел', plural: 'Разделы каталога' },
+  labels: { singular: 'Раздел', plural: '🧺 Разделы каталога' },
   defaultSort: 'sortOrder',
   admin: {
-    group: 'Каталог',
+    group: 'Что продаём',
+    hideAPIURL: true,
     useAsTitle: 'title',
-    defaultColumns: ['title', 'section', 'active', 'sortOrder'],
+    defaultColumns: ['image', 'title', 'section', 'active'],
     description: 'Моно, авторские, с оформлением, только лента, в сумочках, в коробочках…',
   },
   access: { read: publishedOrLoggedIn, create: loggedIn, update: loggedIn, delete: loggedIn },
@@ -30,7 +31,7 @@ export const Categories: CollectionConfig = {
       defaultValue: 'bukety',
       options: [...SECTIONS],
     },
-    { name: 'image', label: 'Картинка раздела', type: 'upload', relationTo: 'media' },
+    { name: 'image', label: 'Картинка раздела', type: 'upload', relationTo: 'media', admin: { components: { Cell: '@/components/admin/ThumbCell#ThumbCell' } } },
     { name: 'description', label: 'Короткое описание', type: 'textarea' },
     slugField(),
     {
@@ -38,7 +39,7 @@ export const Categories: CollectionConfig = {
       label: 'Показывать на сайте',
       type: 'checkbox',
       defaultValue: true,
-      admin: { position: 'sidebar' },
+      admin: { components: { Cell: '@/components/admin/BoolCell#BoolCell' }, position: 'sidebar' },
     },
     {
       name: 'sortOrder',

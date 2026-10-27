@@ -4,8 +4,8 @@ import { revalidateGlobal } from '../lib/revalidate'
 
 export const Settings: GlobalConfig = {
   slug: 'settings',
-  label: 'Контакты и настройки',
-  admin: { group: 'Настройки' },
+  label: '📞 Телефон и контакты',
+  admin: { group: 'Настройки', hideAPIURL: true },
   access: { read: () => true },
   hooks: { afterChange: [revalidateGlobal] },
   fields: [

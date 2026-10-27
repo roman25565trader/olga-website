@@ -5,9 +5,10 @@ import { slugField } from '../fields/slug'
 
 export const Pages: CollectionConfig = {
   slug: 'pages',
-  labels: { singular: 'Страница', plural: 'Текстовые страницы' },
+  labels: { singular: 'Документ', plural: '📄 Документы' },
   admin: {
-    group: 'Страницы сайта',
+    group: 'Тексты сайта',
+    hideAPIURL: true,
     useAsTitle: 'title',
     defaultColumns: ['title', 'slug', 'inFooter'],
     description: 'Оферта, политика конфиденциальности и любые другие страницы с текстом.',
@@ -23,7 +24,7 @@ export const Pages: CollectionConfig = {
       label: 'Ссылка в подвале сайта',
       type: 'checkbox',
       defaultValue: true,
-      admin: { position: 'sidebar' },
+      admin: { components: { Cell: '@/components/admin/BoolCell#BoolCell' }, position: 'sidebar' },
     },
   ],
 }

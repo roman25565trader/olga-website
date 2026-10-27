@@ -1,0 +1,273 @@
+/* Админка Olga. Цветы — проще, крупнее, понятнее. Цвета берём из темы Payload,
+   поэтому всё одинаково хорошо выглядит в светлой и тёмной теме. */
+
+html {
+  font-size: 17px;
+}
+
+/* ---------- переключатель темы ---------- */
+.oc-theme {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 36px;
+  padding: 0 14px;
+  border: 1px solid var(--theme-elevation-200);
+  border-radius: 18px;
+  background: var(--theme-elevation-50);
+  color: var(--theme-text);
+  font: inherit;
+  font-size: 14px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.oc-theme:hover {
+  border-color: var(--theme-elevation-400);
+}
+@media (max-width: 600px) {
+  .oc-theme-t {
+    display: none;
+  }
+}
+
+/* ---------- логотип ---------- */
+.oc-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+.oc-logo-n {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 40px;
+  line-height: 1;
+}
+.oc-logo-s {
+  font-size: 13px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--theme-elevation-500);
+}
+.oc-icon {
+  font-size: 22px;
+  line-height: 1;
+}
+
+/* ---------- главная админки ---------- */
+.oc-dash {
+  padding: calc(var(--base) * 1.5) var(--gutter-h) calc(var(--base) * 3);
+}
+.oc-dash-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px 32px;
+}
+.oc-dash-h {
+  margin: 0;
+  font-size: 30px;
+  line-height: 1.2;
+}
+.oc-dash-x {
+  margin: 10px 0 0;
+  max-width: 680px;
+  font-size: 17px;
+  line-height: 1.5;
+  color: var(--theme-elevation-650);
+}
+.oc-site {
+  display: inline-flex;
+  align-items: center;
+  height: 44px;
+  padding: 0 20px;
+  border-radius: 22px;
+  background: var(--theme-elevation-1000);
+  color: var(--theme-bg) !important;
+  font-weight: 600;
+  text-decoration: none !important;
+  white-space: nowrap;
+}
+.oc-dash-s {
+  margin: 40px 0 14px;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--theme-elevation-500);
+}
+.oc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+}
+.oc-grid--sm {
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+}
+.oc-tile {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-height: 150px;
+  padding: 20px;
+  border: 1px solid var(--theme-elevation-150);
+  border-radius: 14px;
+  background: var(--theme-elevation-50);
+  color: var(--theme-text) !important;
+  text-decoration: none !important;
+  transition: border-color 0.15s, transform 0.15s, box-shadow 0.15s;
+}
+.oc-tile:hover {
+  border-color: var(--theme-elevation-400);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+.oc-tile-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.oc-tile-i {
+  font-size: 30px;
+  line-height: 1;
+}
+.oc-tile-c {
+  font-size: 14px;
+  color: var(--theme-elevation-500);
+  white-space: nowrap;
+}
+.oc-tile-c b {
+  font-size: 22px;
+  color: var(--theme-text);
+}
+.oc-tile-c.is-hot {
+  padding: 4px 12px;
+  border-radius: 14px;
+  background: var(--theme-error-500);
+  color: #fff;
+}
+.oc-tile-c.is-hot b {
+  color: #fff;
+}
+.oc-tile-h {
+  margin-top: 8px;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.25;
+}
+.oc-tile-x {
+  font-size: 15px;
+  line-height: 1.4;
+  color: var(--theme-elevation-600);
+}
+.oc-tile-pics {
+  display: flex;
+  gap: 6px;
+  margin-top: auto;
+  padding-top: 12px;
+}
+.oc-tile-pics img {
+  width: 56px;
+  height: 56px;
+  object-fit: cover;
+  border-radius: 8px;
+  background: var(--theme-elevation-100);
+}
+
+/* ---------- миниатюры в списках ---------- */
+.oc-thumbs {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.oc-thumbs img {
+  width: 56px;
+  height: 56px;
+  object-fit: cover;
+  border-radius: 8px;
+  background: var(--theme-elevation-100);
+}
+.oc-thumbs--empty {
+  font-size: 13px;
+  color: var(--theme-elevation-450);
+}
+.oc-thumbs-more {
+  font-size: 13px;
+  color: var(--theme-elevation-500);
+}
+
+/* ---------- чат ---------- */
+.oc-chat {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 28px;
+  padding: 18px;
+  border-radius: 14px;
+  background: var(--theme-elevation-50);
+}
+.oc-chat-h {
+  margin: 0 0 4px;
+  font-weight: 600;
+}
+.oc-msg {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  align-self: flex-start;
+  max-width: 80%;
+  padding: 10px 14px;
+  border-radius: 14px 14px 14px 4px;
+  background: var(--theme-elevation-150);
+}
+.oc-msg--me {
+  align-self: flex-end;
+  border-radius: 14px 14px 4px 14px;
+  background: var(--theme-success-150);
+}
+.oc-msg-who {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--theme-elevation-600);
+}
+.oc-msg-t {
+  white-space: pre-wrap;
+  font-size: 16px;
+  line-height: 1.45;
+}
+.oc-msg-at {
+  font-size: 12px;
+  color: var(--theme-elevation-500);
+}
+
+/* ---------- крупные превью фото в карточках (букет, раздел, цветок, главная) ---------- */
+.file-details-draggable__thumbnail,
+.upload-relationship-details__thumbnail {
+  width: 96px !important;
+  max-width: 96px !important;
+  height: 96px !important;
+  min-height: 96px !important;
+  border-radius: 10px !important;
+}
+.file-details-draggable__thumbnail img,
+.upload-relationship-details__thumbnail img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover;
+}
+.file-details-draggable {
+  padding-top: 8px !important;
+  padding-bottom: 8px !important;
+}
+
+/* ---------- «Да / Нет» вместо «правда / ложь» ---------- */
+.oc-bool {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 15px;
+}
+.oc-bool--no {
+  color: var(--theme-elevation-450);
+}

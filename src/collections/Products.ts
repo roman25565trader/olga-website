@@ -5,12 +5,14 @@ import { slugField } from '../fields/slug'
 
 export const Products: CollectionConfig = {
   slug: 'products',
-  labels: { singular: 'Товар', plural: 'Товары' },
+  labels: { singular: 'Букет', plural: '💐 Букеты и композиции' },
   defaultSort: 'sortOrder',
   admin: {
-    group: 'Каталог',
+    group: 'Что продаём',
+    hideAPIURL: true,
     useAsTitle: 'title',
-    defaultColumns: ['title', 'price', 'categories', 'active', 'featured'],
+    defaultColumns: ['images', 'title', 'price', 'active', 'featured'],
+    description: 'Нажмите на букет, чтобы поменять фото, цену или описание. Галочка «В продаже» прячет или показывает его на сайте.',
     listSearchableFields: ['title'],
   },
   access: { read: publishedOrLoggedIn, create: loggedIn, update: loggedIn, delete: loggedIn },
@@ -23,7 +25,10 @@ export const Products: CollectionConfig = {
       type: 'upload',
       relationTo: 'media',
       hasMany: true,
-      admin: { description: 'Первое фото — главное. Лучше вертикальные, 4:5.' },
+      admin: {
+        description: 'Первое фото — главное, его видно в каталоге. Перетаскивайте, чтобы поменять порядок. Лучше вертикальные.',
+        components: { Cell: '@/components/admin/ThumbCell#ThumbCell' },
+      },
     },
     {
       type: 'row',
@@ -77,14 +82,14 @@ export const Products: CollectionConfig = {
       label: 'В продаже',
       type: 'checkbox',
       defaultValue: true,
-      admin: { position: 'sidebar', description: 'Выключите — товар пропадёт с сайта' },
+      admin: { components: { Cell: '@/components/admin/BoolCell#BoolCell' }, position: 'sidebar', description: 'Выключите — товар пропадёт с сайта' },
     },
     {
       name: 'featured',
       label: 'Показать на главной',
       type: 'checkbox',
       defaultValue: false,
-      admin: { position: 'sidebar' },
+      admin: { components: { Cell: '@/components/admin/BoolCell#BoolCell' }, position: 'sidebar' },
     },
     {
       name: 'badge',

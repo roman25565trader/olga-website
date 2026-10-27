@@ -3,8 +3,8 @@ import { revalidateGlobal } from '../lib/revalidate'
 
 export const Delivery: GlobalConfig = {
   slug: 'delivery',
-  label: 'Доставка и оплата',
-  admin: { group: 'Страницы сайта' },
+  label: '🚚 Доставка и оплата',
+  admin: { group: 'Тексты сайта', hideAPIURL: true },
   access: { read: () => true },
   hooks: { afterChange: [revalidateGlobal] },
   fields: [
