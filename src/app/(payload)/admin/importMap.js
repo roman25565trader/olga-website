@@ -1,3 +1,4 @@
+import { ChangesPanel as ChangesPanel_4f4dca384be4b33848b22224cfb72226 } from '@/components/admin/ChangesPanel'
 import { BoolCell as BoolCell_756a156f383a82d42f9a498b007f9a61 } from '@/components/admin/BoolCell'
 import { ChatThread as ChatThread_c779b8a0250350440e3c44d4786f1744 } from '@/components/admin/ChatThread'
 import { ThumbCell as ThumbCell_2cc615cd605c94bbafc5cadb5ad18b8b } from '@/components/admin/ThumbCell'
@@ -33,6 +34,7 @@ import { VercelBlobClientUploadHandler as VercelBlobClientUploadHandler_16c82c5e
 
 /** @type import('payload').ImportMap */
 export const importMap = {
+  "@/components/admin/ChangesPanel#ChangesPanel": ChangesPanel_4f4dca384be4b33848b22224cfb72226,
   "@/components/admin/BoolCell#BoolCell": BoolCell_756a156f383a82d42f9a498b007f9a61,
   "@/components/admin/ChatThread#ChatThread": ChatThread_c779b8a0250350440e3c44d4786f1744,
   "@/components/admin/ThumbCell#ThumbCell": ThumbCell_2cc615cd605c94bbafc5cadb5ad18b8b,

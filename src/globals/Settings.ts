@@ -1,4 +1,5 @@
 import type { GlobalConfig } from 'payload'
+import { changesField } from '../fields/changes'
 import { loggedInField } from '../lib/access'
 import { revalidateGlobal } from '../lib/revalidate'
 
@@ -8,7 +9,9 @@ export const Settings: GlobalConfig = {
   admin: { group: 'Настройки', hideAPIURL: true },
   access: { read: () => true },
   hooks: { afterChange: [revalidateGlobal] },
+  versions: { max: 20 },
   fields: [
+    changesField,
     {
       type: 'tabs',
       tabs: [

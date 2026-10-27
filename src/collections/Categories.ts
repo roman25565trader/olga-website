@@ -1,4 +1,5 @@
 import type { CollectionConfig } from 'payload'
+import { changesField } from '../fields/changes'
 import { publishedOrLoggedIn, loggedIn } from '../lib/access'
 import { revalidateAfterChange, revalidateAfterDelete } from '../lib/revalidate'
 import { slugField } from '../fields/slug'
@@ -21,7 +22,9 @@ export const Categories: CollectionConfig = {
   },
   access: { read: publishedOrLoggedIn, create: loggedIn, update: loggedIn, delete: loggedIn },
   hooks: { afterChange: [revalidateAfterChange], afterDelete: [revalidateAfterDelete] },
+  versions: { maxPerDoc: 20 },
   fields: [
+    changesField,
     { name: 'title', label: 'Название', type: 'text', required: true },
     {
       name: 'section',

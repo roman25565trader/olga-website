@@ -271,3 +271,123 @@ html {
 .oc-bool--no {
   color: var(--theme-elevation-450);
 }
+
+/* ---------- «Вы поменяли»: было → станет ---------- */
+.oc-ch {
+  position: sticky;
+  top: 8px;
+  z-index: 5;
+  margin-bottom: 28px;
+  padding: 16px 18px;
+  border: 2px solid #e8a33d;
+  border-radius: 14px;
+  background: color-mix(in srgb, #f6c66b 18%, var(--theme-bg));
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+}
+.oc-ch-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 16px;
+}
+.oc-ch-title {
+  font-size: 17px;
+  font-weight: 600;
+}
+.oc-ch-undo {
+  height: 36px;
+  padding: 0 14px;
+  border: 1px solid var(--theme-elevation-300);
+  border-radius: 18px;
+  background: var(--theme-bg);
+  color: var(--theme-text);
+  font: inherit;
+  font-size: 14px;
+  cursor: pointer;
+}
+.oc-ch-undo:hover {
+  border-color: var(--theme-elevation-600);
+}
+.oc-ch-list {
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+  max-height: 46vh;
+  overflow: auto;
+}
+.oc-ch-list li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 16px;
+  padding: 10px 0;
+  border-top: 1px solid color-mix(in srgb, #e8a33d 35%, transparent);
+}
+.oc-ch-label {
+  min-width: 180px;
+  font-weight: 600;
+}
+.oc-ch-diff {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+}
+.oc-ch-was,
+.oc-ch-now {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.oc-ch-was small,
+.oc-ch-now small {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--theme-elevation-500);
+}
+.oc-ch-was b,
+.oc-ch-was .oc-ch-val {
+  text-decoration: line-through;
+  text-decoration-color: var(--theme-error-500);
+  color: var(--theme-elevation-600);
+  font-weight: 500;
+}
+.oc-ch-was img {
+  opacity: 0.75;
+  outline: 2px solid var(--theme-error-400);
+}
+.oc-ch-now img {
+  outline: 2px solid var(--theme-success-500);
+}
+.oc-ch-arrow {
+  font-size: 20px;
+  color: var(--theme-elevation-500);
+}
+.oc-ch-pics {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.oc-ch-pics img {
+  width: 72px;
+  height: 72px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+.oc-ch-chip {
+  padding: 3px 10px;
+  border-radius: 12px;
+  background: var(--theme-elevation-100);
+  font-size: 14px;
+}
+.oc-ch-empty {
+  font-style: italic;
+  color: var(--theme-elevation-450);
+}
+.oc-ch-hint {
+  margin: 10px 0 0;
+  font-size: 14px;
+  color: var(--theme-elevation-650);
+}

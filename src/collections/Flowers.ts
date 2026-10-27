@@ -1,4 +1,5 @@
 import type { CollectionConfig } from 'payload'
+import { changesField } from '../fields/changes'
 import { publishedOrLoggedIn, loggedIn } from '../lib/access'
 import { revalidateAfterChange, revalidateAfterDelete } from '../lib/revalidate'
 
@@ -15,7 +16,9 @@ export const Flowers: CollectionConfig = {
   },
   access: { read: publishedOrLoggedIn, create: loggedIn, update: loggedIn, delete: loggedIn },
   hooks: { afterChange: [revalidateAfterChange], afterDelete: [revalidateAfterDelete] },
+  versions: { maxPerDoc: 20 },
   fields: [
+    changesField,
     {
       type: 'row',
       fields: [

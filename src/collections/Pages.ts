@@ -1,4 +1,5 @@
 import type { CollectionConfig } from 'payload'
+import { changesField } from '../fields/changes'
 import { anyone, loggedIn } from '../lib/access'
 import { revalidateAfterChange, revalidateAfterDelete } from '../lib/revalidate'
 import { slugField } from '../fields/slug'
@@ -15,7 +16,9 @@ export const Pages: CollectionConfig = {
   },
   access: { read: anyone, create: loggedIn, update: loggedIn, delete: loggedIn },
   hooks: { afterChange: [revalidateAfterChange], afterDelete: [revalidateAfterDelete] },
+  versions: { maxPerDoc: 20 },
   fields: [
+    changesField,
     { name: 'title', label: 'Заголовок', type: 'text', required: true },
     { name: 'content', label: 'Текст', type: 'richText' },
     slugField(),

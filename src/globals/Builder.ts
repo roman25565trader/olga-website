@@ -1,4 +1,5 @@
 import type { GlobalConfig } from 'payload'
+import { changesField } from '../fields/changes'
 import { revalidateGlobal } from '../lib/revalidate'
 
 export const Builder: GlobalConfig = {
@@ -7,7 +8,9 @@ export const Builder: GlobalConfig = {
   admin: { group: 'Тексты сайта', hideAPIURL: true, description: 'Сами цветы и цены — в разделе «Цветы для конструктора».' },
   access: { read: () => true },
   hooks: { afterChange: [revalidateGlobal] },
+  versions: { max: 20 },
   fields: [
+    changesField,
     { name: 'title', label: 'Заголовок', type: 'text', admin: { description: 'На главной над блоком уже есть надпись «Конструктор» — заголовок можно не заполнять.' } },
     {
       name: 'text',

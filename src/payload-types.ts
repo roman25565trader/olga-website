@@ -279,7 +279,6 @@ export interface Media {
    * Например: «Букет из пионовидных роз в крафте». Можно оставить пустым.
    */
   alt?: string | null;
-  _objectKey?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -653,7 +652,6 @@ export interface FlowersSelect<T extends boolean = true> {
  */
 export interface MediaSelect<T extends boolean = true> {
   alt?: T;
-  _objectKey?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;

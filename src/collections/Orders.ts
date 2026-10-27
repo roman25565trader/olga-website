@@ -1,4 +1,5 @@
 import type { CollectionConfig } from 'payload'
+import { changesField } from '../fields/changes'
 import { loggedIn } from '../lib/access'
 import { notifyTelegram } from '../lib/notify'
 
@@ -65,6 +66,7 @@ export const Orders: CollectionConfig = {
     ],
   },
   fields: [
+    changesField,
     { name: 'number', label: 'Номер', type: 'text', admin: { readOnly: true, position: 'sidebar' } },
     {
       name: 'status',

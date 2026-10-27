@@ -1,4 +1,5 @@
 import type { GlobalConfig } from 'payload'
+import { changesField } from '../fields/changes'
 import { revalidateGlobal } from '../lib/revalidate'
 
 export const About: GlobalConfig = {
@@ -7,7 +8,9 @@ export const About: GlobalConfig = {
   admin: { group: 'Тексты сайта', hideAPIURL: true },
   access: { read: () => true },
   hooks: { afterChange: [revalidateGlobal] },
+  versions: { max: 20 },
   fields: [
+    changesField,
     { name: 'title', label: 'Заголовок', type: 'text', defaultValue: 'О *нас*' },
     { name: 'lead', label: 'Вступление', type: 'textarea' },
     { name: 'image', label: 'Фото', type: 'upload', relationTo: 'media' },

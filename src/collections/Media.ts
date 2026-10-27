@@ -31,6 +31,11 @@ export const Media: CollectionConfig = {
       { name: 'md', width: 900, formatOptions: { format: 'webp', options: { quality: 76 } } },
       { name: 'lg', width: 1600, formatOptions: { format: 'webp', options: { quality: 78 } } },
     ],
-    adminThumbnail: 'xs',
+    // Прямая ссылка на миниатюру (в хранилище Vercel Blob файлы лежат не на сервере Payload)
+    adminThumbnail: ({ doc }) => {
+      const d = doc as { mimeType?: string; url?: string; sizes?: { xs?: { url?: string } } }
+      if (!d.mimeType?.startsWith('image/')) return null
+      return d.sizes?.xs?.url || d.url || null
+    },
   },
 }
