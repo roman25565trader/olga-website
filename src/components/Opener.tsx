@@ -6,12 +6,16 @@ export function Opener({ k, title, aside, text, as = 'h2' }: { k?: string; title
   return (
     <div className="op">
       <div className="op-bar">{k ? <p className="k">{k}</p> : <span />}</div>
-      <div className="op-row">
-        <H className={as === 'h1' ? 'h1 h1--task' : 'h2'}>
-          <Em text={title} />
-        </H>
-        {aside ? <div className="op-aside">{aside}</div> : null}
-      </div>
+      {title || aside ? (
+        <div className="op-row">
+          {title ? (
+            <H className={as === 'h1' ? 'h1 h1--task' : 'h2'}>
+              <Em text={title} />
+            </H>
+          ) : null}
+          {aside ? <div className="op-aside">{aside}</div> : null}
+        </div>
+      ) : null}
       {text ? <p className="lead op-x">{text}</p> : null}
     </div>
   )

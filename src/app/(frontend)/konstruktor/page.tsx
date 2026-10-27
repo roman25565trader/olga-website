@@ -19,7 +19,7 @@ export default async function BuilderPage() {
           <li>Конструктор букета</li>
         </ol>
       </nav>
-      <Opener as="h1" title={b.title} text={b.text} />
+      <Opener as="h1" title={b.title || 'Конструктор букета'} text={b.text} />
       {flowers.length ? (
         <Builder
           flowers={flowers.map((f) => ({ id: f.id, name: f.name, variety: f.variety, price: f.price, unit: f.unit, stock: f.stock, thumb: thumbUrl(f.image) }))}

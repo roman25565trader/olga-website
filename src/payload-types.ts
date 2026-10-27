@@ -855,6 +855,9 @@ export interface Home {
  */
 export interface Builder {
   id: number;
+  /**
+   * На главной над блоком уже есть надпись «Конструктор» — заголовок можно не заполнять.
+   */
   title?: string | null;
   text?: string | null;
   packaging?:

@@ -18,8 +18,8 @@ export const Settings: GlobalConfig = {
             {
               type: 'row',
               fields: [
-                { name: 'siteName', label: 'Название (логотип)', type: 'text', required: true, defaultValue: 'Olga. Цветы' },
-                { name: 'tagline', label: 'Подпись под логотипом', type: 'text', defaultValue: 'цветочный магазин' },
+                { name: 'siteName', label: 'Название (логотип)', type: 'text', required: true, defaultValue: 'Клумба' },
+                { name: 'tagline', label: 'Подпись под логотипом', type: 'text', defaultValue: 'цветочный салон' },
               ],
             },
             { name: 'logo', label: 'Логотип-картинка (необязательно)', type: 'upload', relationTo: 'media' },

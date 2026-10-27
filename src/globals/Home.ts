@@ -14,7 +14,7 @@ export const Home: GlobalConfig = {
         {
           label: 'Первый экран',
           fields: [
-            { name: 'heroKicker', label: 'Надпись над заголовком', type: 'text', defaultValue: 'Цветочный магазин · Магнитогорск' },
+            { name: 'heroKicker', label: 'Надпись над заголовком', type: 'text', defaultValue: 'Цветочный салон · Магнитогорск' },
             {
               name: 'heroTitle',
               label: 'Заголовок',
