@@ -234,7 +234,16 @@ export interface Product {
    */
   short?: string | null;
   description?: string | null;
+  /**
+   * Каждый цветок с новой строки: «Роза кустовая — 7 шт.»
+   */
   composition?: string | null;
+  width?: number | null;
+  height?: number | null;
+  /**
+   * Например: Маме, День рождения, Без повода. Видно на странице букета и помогает поиску.
+   */
+  occasions?: string[] | null;
   /**
    * Например S / M / L со своей ценой. Если пусто — одна цена.
    */
@@ -248,9 +257,23 @@ export interface Product {
     | null;
   categories?: (number | Category)[] | null;
   /**
+   * Можно не заполнять — сайт сам составит заголовок и описание из названия, состава и города.
+   */
+  seo?: {
+    /**
+     * До 65 знаков. Название магазина добавится само.
+     */
+    title?: string | null;
+    /**
+     * 140–160 знаков: что это, для кого, доставка по городу.
+     */
+    description?: string | null;
+  };
+  /**
    * Заполнится сам из названия. Латиницей, без пробелов.
    */
   slug?: string | null;
+  flowwowId?: number | null;
   /**
    * Выключите — товар пропадёт с сайта
    */
@@ -334,9 +357,26 @@ export interface Media {
 export interface Category {
   id: number;
   title: string;
-  section: 'bukety' | 'kompozicii';
+  section: 'bukety' | 'kompozicii' | 'podarki';
   image?: (number | null) | Media;
   description?: string | null;
+  /**
+   * Пара абзацев о разделе для покупателей и поисковиков. Пустая строка — новый абзац.
+   */
+  seoText?: string | null;
+  /**
+   * Можно не заполнять — сайт сам составит заголовок и описание из названия, состава и города.
+   */
+  seo?: {
+    /**
+     * До 65 знаков. Название магазина добавится само.
+     */
+    title?: string | null;
+    /**
+     * 140–160 знаков: что это, для кого, доставка по городу.
+     */
+    description?: string | null;
+  };
   /**
    * Заполнится сам из названия. Латиницей, без пробелов.
    */
@@ -598,6 +638,9 @@ export interface ProductsSelect<T extends boolean = true> {
   short?: T;
   description?: T;
   composition?: T;
+  width?: T;
+  height?: T;
+  occasions?: T;
   sizes?:
     | T
     | {
@@ -607,7 +650,14 @@ export interface ProductsSelect<T extends boolean = true> {
         id?: T;
       };
   categories?: T;
+  seo?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+      };
   slug?: T;
+  flowwowId?: T;
   active?: T;
   featured?: T;
   badge?: T;
@@ -624,6 +674,13 @@ export interface CategoriesSelect<T extends boolean = true> {
   section?: T;
   image?: T;
   description?: T;
+  seoText?: T;
+  seo?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+      };
   slug?: T;
   active?: T;
   sortOrder?: T;
@@ -969,6 +1026,10 @@ export interface Setting {
   telegram?: string | null;
   vk?: string | null;
   max?: string | null;
+  /**
+   * Поисковики и ИИ-помощники увидят, что это один и тот же магазин
+   */
+  flowwow?: string | null;
   instagramNote?: string | null;
   address?: string | null;
   mapLink?: string | null;
@@ -1135,6 +1196,7 @@ export interface SettingsSelect<T extends boolean = true> {
   telegram?: T;
   vk?: T;
   max?: T;
+  flowwow?: T;
   instagramNote?: T;
   address?: T;
   mapLink?: T;

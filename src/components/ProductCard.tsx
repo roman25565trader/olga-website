@@ -6,11 +6,16 @@ import { Img } from './Img'
 export function ProductCard({ p, sizes = '(max-width: 1023px) 50vw, 25vw', h = 3, priority }: { p: Product; sizes?: string; h?: 2 | 3; priority?: boolean }) {
   const H = h === 2 ? 'h2' : 'h3'
   const from = p.sizes && p.sizes.length > 1
+  const price = productPrice(p)
+  const sale = !from && p.oldPrice && p.oldPrice > price ? Math.round((1 - price / p.oldPrice) * 100) : 0
+  const second = p.images?.[1]
   return (
-    <article className="card">
+    <article className={`card${second ? ' card--2' : ''}`}>
       <div className="card-m">
         {p.images?.[0] ? <Img media={p.images[0]} sizes={sizes} alt={p.title} priority={priority} /> : null}
+        {second ? <Img media={second} sizes={sizes} alt="" className="card-alt" /> : null}
         {p.badge ? <span className="badge">{p.badge}</span> : null}
+        {sale >= 5 ? <span className="badge badge--sale">−{sale}%</span> : null}
       </div>
       <div className="card-t">
         <H className="card-n">
@@ -20,8 +25,8 @@ export function ProductCard({ p, sizes = '(max-width: 1023px) 50vw, 25vw', h = 3
         </H>
         <p className="card-p">
           {from ? 'от ' : ''}
-          {rub(productPrice(p))}
-          {p.oldPrice && !from ? <s>{rub(p.oldPrice)}</s> : null}
+          {rub(price)}
+          {sale ? <s>{rub(p.oldPrice)}</s> : null}
         </p>
       </div>
       {p.short ? <p className="card-s">{p.short}</p> : null}

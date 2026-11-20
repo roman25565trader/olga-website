@@ -61,6 +61,13 @@ export const Settings: GlobalConfig = {
                 { name: 'max', label: 'MAX (ссылка)', type: 'text' },
               ],
             },
+            {
+              name: 'flowwow',
+              label: 'Магазин на Flowwow (ссылка)',
+              type: 'text',
+              defaultValue: 'https://flowwow.com/shop/klumbaf-8650/',
+              admin: { description: 'Поисковики и ИИ-помощники увидят, что это один и тот же магазин' },
+            },
             { name: 'instagramNote', label: 'Подпись к Instagram', type: 'text', defaultValue: 'Посмотрите наши работы' },
             { name: 'address', label: 'Адрес', type: 'text', defaultValue: 'пр. Карла Маркса, 121' },
             { name: 'mapLink', label: 'Ссылка на карту (2ГИС / Яндекс)', type: 'text' },

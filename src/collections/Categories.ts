@@ -3,10 +3,12 @@ import { changesField } from '../fields/changes'
 import { publishedOrLoggedIn, loggedIn } from '../lib/access'
 import { revalidateAfterChange, revalidateAfterDelete } from '../lib/revalidate'
 import { slugField } from '../fields/slug'
+import { seoGroup } from '../fields/seo'
 
 export const SECTIONS = [
   { label: 'Букеты', value: 'bukety' },
   { label: 'Композиции', value: 'kompozicii' },
+  { label: 'Подарки', value: 'podarki' },
 ] as const
 
 export const Categories: CollectionConfig = {
@@ -36,6 +38,13 @@ export const Categories: CollectionConfig = {
     },
     { name: 'image', label: 'Картинка раздела', type: 'upload', relationTo: 'media', admin: { components: { Cell: '@/components/admin/ThumbCell#ThumbCell' } } },
     { name: 'description', label: 'Короткое описание', type: 'textarea' },
+    {
+      name: 'seoText',
+      label: 'Текст внизу раздела',
+      type: 'textarea',
+      admin: { description: 'Пара абзацев о разделе для покупателей и поисковиков. Пустая строка — новый абзац.' },
+    },
+    seoGroup,
     slugField(),
     {
       name: 'active',

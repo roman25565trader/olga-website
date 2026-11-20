@@ -5,7 +5,9 @@ import { Footer } from '@/components/Footer'
 import { Header } from '@/components/Header'
 import { Chat } from '@/components/client/Chat'
 import { Toast } from '@/components/client/Toast'
-import { getFooterPages, getHome, getSettings } from '@/lib/data'
+import { JsonLd } from '@/components/JsonLd'
+import { getCategories, getFooterPages, getHome, getProducts, getSettings } from '@/lib/data'
+import { shopLd } from '@/lib/seo'
 import { telHref } from '@/lib/format'
 import { asMedia, thumbUrl } from '@/lib/media'
 import './styles.css'
@@ -18,7 +20,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const og = asMedia(s.ogImage)
   return {
     metadataBase: new URL(siteUrl()),
-    title: { default: title, template: `%s — ${s.siteName}` },
+    title: { default: title, template: `%s | ${s.siteName}` },
     description: s.seoDescription || undefined,
     openGraph: {
       type: 'website',
@@ -26,6 +28,8 @@ export async function generateMetadata(): Promise<Metadata> {
       siteName: s.siteName,
       images: og?.url ? [{ url: og.sizes?.lg?.url || og.url }] : undefined,
     },
+    robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-image-preview': 'large', 'max-snippet': -1, 'max-video-preview': -1 } },
+    alternates: { types: { 'text/plain': '/llms.txt' } },
     formatDetection: { telephone: false },
   }
 }
@@ -33,10 +37,11 @@ export async function generateMetadata(): Promise<Metadata> {
 export const viewport: Viewport = { themeColor: '#FFFFFF', width: 'device-width', initialScale: 1 }
 
 export default async function Layout({ children }: { children: React.ReactNode }) {
-  const [s, pages, home] = await Promise.all([getSettings(), getFooterPages(), getHome()])
+  const [s, pages, home, products, cats] = await Promise.all([getSettings(), getFooterPages(), getHome(), getProducts(), getCategories()])
   return (
     <html lang="ru">
       <body>
+        <JsonLd data={shopLd(s, products, cats)} />
         <Header s={s} />
         <main>{children}</main>
         <Footer s={s} pages={pages} />

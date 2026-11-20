@@ -1,1 +1,17 @@
-export const SECTION_TITLES: Record<string, string> = { bukety: 'Букеты', kompozicii: 'Композиции' }
+export const SECTION_TITLES: Record<string, string> = { bukety: 'Букеты', kompozicii: 'Композиции', podarki: 'Подарки' }
+
+/** Заголовок раздела для поисковиков: «Букеты с доставкой в Магнитогорске» */
+export const SECTION_SEO: Record<string, { title: string; description: string }> = {
+  bukety: {
+    title: 'Букеты с доставкой',
+    description: 'монобукеты из роз и хризантем и авторские букеты флориста. Свежие цветы, фото до отправки, доставка в день заказа.',
+  },
+  kompozicii: {
+    title: 'Цветы в коробке и сумочке',
+    description: 'композиции в шляпных коробках и сумочках на флористической губке — стоят без вазы. Доставка в день заказа.',
+  },
+  podarki: {
+    title: 'Подарки к букету',
+    description: 'наборы с цветами и конфетами, стеклянные вазы для букетов. Доставим вместе с цветами.',
+  },
+}

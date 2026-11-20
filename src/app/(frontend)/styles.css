@@ -504,3 +504,22 @@ p{text-wrap:pretty}
   .has-bar .toast{bottom:84px}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+
+/* ---------- каталог: второе фото, скидка, характеристики, SEO-текст ---------- */
+.card-m>.card-alt{opacity:0;transition:opacity .5s var(--ease),transform .6s var(--ease)}
+@media (hover:hover){.card--2:hover .card-m>.card-alt{opacity:1}}
+.badge--sale{left:auto;right:12px;background:var(--red);color:#fff}
+.pp-badge{display:inline-flex;align-items:center;height:28px;margin-bottom:16px;padding:0 10px;background:var(--s2);font:500 12px/1 var(--sans);letter-spacing:.08em;text-transform:uppercase}
+.pp-list{margin-top:8px;font:400 16px/1.6 var(--sans);color:var(--t2)}
+.pp-list li{display:flex;gap:12px}
+.pp-list li::before{content:"";flex:none;width:12px;height:1px;margin-top:.8em;background:var(--red)}
+.pp-dims{display:flex;gap:40px;margin-top:8px}
+.pp-dims dt{font:400 13px/1.4 var(--sans);color:var(--muted)}
+.pp-dims dd{margin:2px 0 0;font:400 24px/1.2 var(--display);font-variant-numeric:tabular-nums}
+.pp-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.pp-tags li{display:inline-flex;align-items:center;min-height:32px;padding:0 12px;border:1px solid var(--line);background:var(--s2);font:400 14px/1.2 var(--sans);color:var(--t2)}
+.seo-t{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:48px;margin-top:var(--sec);padding-top:24px;border-top:1px solid var(--ink)}
+.seo-t h2{font:350 32px/1.1 var(--display);letter-spacing:-.01em}
+.seo-t div>p{max-width:680px;font:400 16px/1.7 var(--sans);color:var(--t2)}
+.seo-t div>p+p{margin-top:1em}
+@media (max-width:1023px){.seo-t{grid-template-columns:1fr;gap:16px}.seo-t h2{font-size:26px}}

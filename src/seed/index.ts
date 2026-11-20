@@ -81,6 +81,12 @@ const catDefs = [
 
 const cat: Record<string, number> = {}
 for (const [i, c] of catDefs.entries()) {
+  // Раздел мог уже появиться из каталога Flowwow (миграция) — тогда берём его
+  const existing = await payload.find({ collection: 'categories', where: { slug: { equals: CAT_SLUG[c.key] } }, limit: 1, depth: 0 })
+  if (existing.docs[0]) {
+    cat[c.key] = existing.docs[0].id
+    continue
+  }
   const doc = await payload.create({
     collection: 'categories',
     data: {
@@ -128,7 +134,9 @@ const products = [
   { title: 'Нежность в сумочке', price: 4800, short: 'Пионовидные розы и диантус', cats: ['k-bag'], imgs: [['hatbox', 'Цветы в сумочке']], composition: 'Роза пионовидная, диантус, гвоздика, сумочка.' },
 ]
 
-for (const [i, p] of products.entries()) {
+// Настоящий каталог уже загружен миграцией — демо-букеты не нужны
+const hasCatalog = (await payload.count({ collection: 'products' })).totalDocs > 0
+for (const [i, p] of hasCatalog ? [] : [...products.entries()]) {
   const images: number[] = []
   for (const [n, alt] of p.imgs) {
     const id = await up(n, alt)

@@ -2,6 +2,8 @@ import * as migration_20261014_091355_initial from './20261014_091355_initial';
 import * as migration_20261015_075135_blob_storage_fields from './20261015_075135_blob_storage_fields';
 import * as migration_20261024_090239_klumba_texts from './20261024_090239_klumba_texts';
 import * as migration_20261027_095925_versions_history from './20261027_095925_versions_history';
+import * as migration_20261120_165959_catalog_seo_fields from './20261120_165959_catalog_seo_fields';
+import * as migration_20261120_170100_flowwow_catalog from './20261120_170100_flowwow_catalog';
 
 export const migrations = [
   {
@@ -22,6 +24,16 @@ export const migrations = [
   {
     up: migration_20261027_095925_versions_history.up,
     down: migration_20261027_095925_versions_history.down,
-    name: '20261027_095925_versions_history'
+    name: '20261027_095925_versions_history',
+  },
+  {
+    up: migration_20261120_165959_catalog_seo_fields.up,
+    down: migration_20261120_165959_catalog_seo_fields.down,
+    name: '20261120_165959_catalog_seo_fields',
+  },
+  {
+    up: migration_20261120_170100_flowwow_catalog.up,
+    down: migration_20261120_170100_flowwow_catalog.down,
+    name: '20261120_170100_flowwow_catalog',
   },
 ];

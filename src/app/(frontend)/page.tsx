@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import { Em } from '@/components/Em'
 import { Icon } from '@/components/Icon'
@@ -12,6 +13,8 @@ import { getBuilder, getCategories, getFlowers, getHome, getProducts, getSetting
 import { telHref } from '@/lib/format'
 import { asMedia, isVideo, thumbUrl } from '@/lib/media'
 
+export const metadata: Metadata = { alternates: { canonical: '/' } }
+
 export default async function HomePage() {
   const [s, h, cats, products, flowers, b] = await Promise.all([
     getSettings(),
@@ -24,24 +27,15 @@ export default async function HomePage() {
   const counts = Object.fromEntries(cats.map((c) => [c.id, productsInCategory(products, c.id).length]))
   const bouquets = cats.filter((c) => c.section === 'bukety')
   const compositions = cats.filter((c) => c.section === 'kompozicii')
+  const gifts = cats.filter((c) => c.section === 'podarki')
   const featured = products.filter((p) => p.featured).slice(0, 8)
   const video = isVideo(h.heroVideo) ? asMedia(h.heroVideo) : null
   const tel = telHref(s.phone)
   const poster = h.heroImage ? <Img media={h.heroImage} sizes="(max-width: 767px) 100vw, 50vw" priority /> : null
 
-  const ld = {
-    '@context': 'https://schema.org',
-    '@type': 'Florist',
-    name: s.siteName,
-    telephone: s.phone,
-    address: { '@type': 'PostalAddress', streetAddress: s.address, addressLocality: s.city },
-    openingHours: s.hours,
-    sameAs: [s.instagram, s.vk, s.telegram].filter(Boolean),
-  }
-
+  // Разметка магазина (Florist) — в общем шаблоне, на всех страницах
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }} />
       <section className="hero">
         <div className="wrap hero-g">
           <div className="hero-t">
@@ -100,6 +94,15 @@ export default async function HomePage() {
           <div className="wrap">
             <Opener k="Каталог" title={h.compositionsTitle} text={h.compositionsText} aside={<Link href="/kompozicii" className="lnk">Все композиции <Icon name="arrow" /></Link>} />
             <Tiles cats={compositions} counts={counts} base="kompozicii" />
+          </div>
+        </section>
+      )}
+
+      {gifts.length > 0 && (
+        <section className="sec">
+          <div className="wrap">
+            <Opener k="К букету" title="Подарки и *вазы*" aside={<Link href="/podarki" className="lnk">Все подарки <Icon name="arrow" /></Link>} />
+            <Tiles cats={gifts} counts={counts} base="podarki" />
           </div>
         </section>
       )}

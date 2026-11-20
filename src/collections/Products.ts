@@ -3,6 +3,7 @@ import { changesField } from '../fields/changes'
 import { publishedOrLoggedIn, loggedIn } from '../lib/access'
 import { revalidateAfterChange, revalidateAfterDelete } from '../lib/revalidate'
 import { slugField } from '../fields/slug'
+import { seoGroup } from '../fields/seo'
 
 export const Products: CollectionConfig = {
   slug: 'products',
@@ -53,7 +54,21 @@ export const Products: CollectionConfig = {
       admin: { description: 'Например: «15 роз 60 см · Ø 40 см»' },
     },
     { name: 'description', label: 'Описание', type: 'textarea' },
-    { name: 'composition', label: 'Состав', type: 'textarea' },
+    { name: 'composition', label: 'Состав', type: 'textarea', admin: { description: 'Каждый цветок с новой строки: «Роза кустовая — 7 шт.»' } },
+    {
+      type: 'row',
+      fields: [
+        { name: 'width', label: 'Ширина, см', type: 'number', min: 0 },
+        { name: 'height', label: 'Высота, см', type: 'number', min: 0 },
+      ],
+    },
+    {
+      name: 'occasions',
+      label: 'Кому и к какому поводу',
+      type: 'text',
+      hasMany: true,
+      admin: { description: 'Например: Маме, День рождения, Без повода. Видно на странице букета и помогает поиску.' },
+    },
     {
       name: 'sizes',
       label: 'Размеры (если есть)',
@@ -79,7 +94,9 @@ export const Products: CollectionConfig = {
       hasMany: true,
       admin: { position: 'sidebar' },
     },
+    seoGroup,
     slugField(),
+    { name: 'flowwowId', type: 'number', index: true, admin: { hidden: true } },
     {
       name: 'active',
       label: 'В продаже',

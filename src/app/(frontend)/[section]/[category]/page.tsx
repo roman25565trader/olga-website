@@ -1,10 +1,13 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
+import { JsonLd } from '@/components/JsonLd'
 import { Opener } from '@/components/Opener'
 import { ProductGrid } from '@/components/ProductCard'
-import { getCategories, getProducts, productsInCategory } from '@/lib/data'
+import { SeoText } from '@/components/SeoText'
+import { getCategories, getProducts, getSettings, productsInCategory } from '@/lib/data'
 import { SECTION_TITLES } from '@/lib/sections'
+import { breadcrumbsLd, categoryDescription, categoryTitle, categoryUrl, inCity, itemListLd } from '@/lib/seo'
 
 type P = { params: Promise<{ section: string; category: string }> }
 
@@ -14,20 +17,30 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: P): Promise<Metadata> {
-  const { category } = await params
-  const cat = (await getCategories()).find((c) => c.slug === category)
-  return { title: cat ? `${cat.title} — ${SECTION_TITLES[cat.section]?.toLowerCase()}` : undefined, description: cat?.description || undefined }
+  const { section, category } = await params
+  const [cats, s] = await Promise.all([getCategories(), getSettings()])
+  const cat = cats.find((c) => c.slug === category && c.section === section)
+  if (!cat) return {}
+  const title = categoryTitle(cat, s)
+  const description = categoryDescription(cat, s)
+  return { title, description, alternates: { canonical: categoryUrl(cat) }, openGraph: { title, description, url: categoryUrl(cat) } }
 }
 
 export default async function CategoryPage({ params }: P) {
   const { section, category } = await params
-  const [cats, products] = await Promise.all([getCategories(), getProducts()])
+  const [cats, products, s] = await Promise.all([getCategories(), getProducts(), getSettings()])
   const cat = cats.find((c) => c.slug === category && c.section === section)
   if (!cat) notFound()
   const siblings = cats.filter((c) => c.section === section)
   const list = productsInCategory(products, cat.id)
+  const crumbs = [
+    { name: 'Главная', url: '/' },
+    { name: SECTION_TITLES[section], url: `/${section}` },
+    { name: cat.title, url: categoryUrl(cat) },
+  ]
   return (
     <div className="wrap sec-b">
+      <JsonLd data={[breadcrumbsLd(crumbs), itemListLd(`${SECTION_TITLES[section]}: ${cat.title}`, list)]} />
       <nav aria-label="Навигационная цепочка">
         <ol className="crumbs">
           <li>
@@ -36,7 +49,7 @@ export default async function CategoryPage({ params }: P) {
           <li>
             <Link href={`/${section}`}>{SECTION_TITLES[section]}</Link>
           </li>
-          <li>{cat.title}</li>
+          <li aria-current="page">{cat.title}</li>
         </ol>
       </nav>
       <Opener as="h1" title={cat.title} text={cat.description} />
@@ -52,6 +65,7 @@ export default async function CategoryPage({ params }: P) {
         </div>
       )}
       <ProductGrid products={list} h={2} eager={2} />
+      <SeoText title={`${SECTION_TITLES[section]} «${cat.title}» ${inCity(s.city)}`} text={cat.seoText} />
     </div>
   )
 }

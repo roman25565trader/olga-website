@@ -11,6 +11,7 @@ import { ChatOpen } from './client/ChatOpen'
 export const NAV = [
   { href: '/bukety', label: 'Букеты' },
   { href: '/kompozicii', label: 'Композиции' },
+  { href: '/podarki', label: 'Подарки' },
   { href: '/konstruktor', label: 'Собрать букет' },
   { href: '/dostavka', label: 'Доставка' },
   { href: '/o-nas', label: 'О нас' },
